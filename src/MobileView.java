@@ -235,6 +235,8 @@ public class MobileView extends javax.swing.JFrame  {
         }
     }
 
+    // TODO gör så att vi kan cycla mellan de möjliga orden
+    // TODO gör så att vi kan ändra mellan stor/liten boksatv
     void commitString(String wordString) {
         // TODO Den här behöver kunna hantera '.' så han tolkar det som en ny tom rad
     	String mostProbableWord;

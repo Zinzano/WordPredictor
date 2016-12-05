@@ -16,6 +16,9 @@ public class WordPredictor {
 		createWordMap();
 	}
 
+	// TODO måste returnera något även då ord ej finns
+	// Ett sätt är att kolla upp tänkbara ord inom 4 bokstäver framåt
+	
 	//La till här att den skall returnera något även om ordet inte finns i ordlistan.
 	//annars ger den error.
 	//Skulle kunna lägga till så att den kastar om/tarbort/lägger till siffror LOKALT för att testa för 
@@ -65,6 +68,7 @@ public class WordPredictor {
         br.close();
 	}
 	
+	// TODO Stora bokstäver, se till att den inte gör om till lowercase
 	// Ska skriva om den här till en snygg for-loop som även lägger in stora bokstäver
     // Alternativt lägga in allt i en fil som vi sedan läser in. Kan snacka om vilket som blir snyggast
     // Skapar alphabet
