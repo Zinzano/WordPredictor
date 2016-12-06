@@ -46,7 +46,6 @@ public class NgramSorter {
             return Double.parseDouble(wordFrequencyMap.get(wordsBefore));
     }
 
-    // TODO Skall returnera Lista ist för enstaka ord, måste hanteras i mobileView
 	Object[][] getWordsByFrequency(List<String> words, String currentSentence){
         // TODO Behöver skriva om den här så den hanterar näre words.size() = null, tex trycker på space två gånger i rad
         Object[][] wordFrequencyArray  = new Object[words.size()][2];
@@ -99,13 +98,11 @@ public class NgramSorter {
         
 	}
 	
-	// TODO Kolla upp och se om man kan göra det på ett bättre sätt
 	Object[][] getListByFrequency(Object[][] wordFrequencyArray){
 		Arrays.sort(wordFrequencyArray, new Comparator<Object[]>() {
             public int compare(Object[] f1, Object[] f2) {
                 Double freq1 = (Double) (f1[0]);
                 Double freq2 = (Double) (f2[0]);
-
                 return Double.compare(freq2, freq1);
                 }});
 		return wordFrequencyArray;
