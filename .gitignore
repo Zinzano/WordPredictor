@@ -15,4 +15,5 @@
 hs_err_pid*
 
 1_pos_n_cs_n.txt
-*.metadata
+.metadata/
+.ideas/
