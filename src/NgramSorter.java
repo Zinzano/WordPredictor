@@ -34,7 +34,6 @@ public class NgramSorter {
         } 
 	}
 	
-	// TODO Gör om så att ord som ej hittas får slh NEGATIVE INF
     // Tar ett ord som sträng och en lista med de tidigare orden, ger tillbaka slh
     Double getWordFrequency(String word, List<String> wordsBefore){
         wordsBefore.add(word);
@@ -48,7 +47,7 @@ public class NgramSorter {
     }
 
     // TODO Skall returnera Lista ist för enstaka ord, måste hanteras i mobileView
-	String getWordsByFrequency(List<String> words, String currentSentence){
+	Object[][] getWordsByFrequency(List<String> words, String currentSentence){
         // TODO Behöver skriva om den här så den hanterar näre words.size() = null, tex trycker på space två gånger i rad
         Object[][] wordFrequencyArray  = new Object[words.size()][2];
 
@@ -96,15 +95,12 @@ public class NgramSorter {
         	return getWordsByFrequency(words, listString.toString());
         }
         
-        String bestWord = getHighestFrequency(wordFrequencyArray);
-        return  bestWord;
+        return  getListByFrequency(wordFrequencyArray);
         
 	}
 	
 	// TODO Kolla upp och se om man kan göra det på ett bättre sätt
-	//Skapade denna funktion som sorterar, flyttade ut koden från getWordsByFrequency
-    //Sorterar Arrayen med ord,frekvens och returnerar den med högst frekvens
-	String getHighestFrequency(Object[][] wordFrequencyArray){
+	Object[][] getListByFrequency(Object[][] wordFrequencyArray){
 		Arrays.sort(wordFrequencyArray, new Comparator<Object[]>() {
             public int compare(Object[] f1, Object[] f2) {
                 Double freq1 = (Double) (f1[0]);
@@ -112,7 +108,7 @@ public class NgramSorter {
 
                 return Double.compare(freq2, freq1);
                 }});
-		return (String)wordFrequencyArray[0][1];
+		return wordFrequencyArray;
 	}
 }
 

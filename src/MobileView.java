@@ -23,7 +23,7 @@ public class MobileView extends javax.swing.JFrame  {
      */
     public MobileView() throws IOException {
     	this.wp = new WordPredictor();
-    	this.ns = new NgramSorter(5);
+    	this.ns = new NgramSorter(3);
         this.currentNumberString = "";
         this.currentWrittenWords = "";
         initComponents();
@@ -242,13 +242,15 @@ public class MobileView extends javax.swing.JFrame  {
     	String mostProbableWord;
     	if(wordString.substring(wordString.length()-1).equals(" ")){
     		List<String> t9words = wp.getWordFromNum(wordString.substring(0, wordString.length()-1));
-            mostProbableWord = ns.getWordsByFrequency(t9words, currentWrittenWords);
+    		Object[][] listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+            mostProbableWord = (String) listOfRankedwords[0][1];
     		currentWrittenWords+=mostProbableWord + " ";
     		this.screen.setText(currentWrittenWords);
     		return;
     	}
     	List<String> t9words = wp.getWordFromNum(wordString);
-		mostProbableWord = ns.getWordsByFrequency(t9words, currentWrittenWords);
+    	Object[][] listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+		mostProbableWord = (String) listOfRankedwords[0][1];
 		this.screen.setText(currentWrittenWords + mostProbableWord);
     }
 }
