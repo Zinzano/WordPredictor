@@ -42,7 +42,7 @@ public class NgramSorter {
         	System.out.println(wordsBefore);
         	System.out.println(tempFreq);
         	if(tempFreq==null){
-        		return null;
+        		return Double.NEGATIVE_INFINITY;
         	}
             return Double.parseDouble(wordFrequencyMap.get(wordsBefore));
     }
@@ -79,7 +79,7 @@ public class NgramSorter {
             wordsBefore.remove(wordsBefore.size()-1);
             wordFrequencyArray[i][1] = tmpWord;
             wordFrequencyArray[i][0] = tmpFreq;
-            if(tmpFreq!=null){
+            if(tmpFreq!=Double.NEGATIVE_INFINITY){
             	noPropabilityForWord=false;
             }   
          }
@@ -109,15 +109,7 @@ public class NgramSorter {
             public int compare(Object[] f1, Object[] f2) {
                 Double freq1 = (Double) (f1[0]);
                 Double freq2 = (Double) (f2[0]);
-                if (freq1 == null && freq2 == null) {
-                    return 0;
-                }
-                if (freq1 == null) {
-                    return 1;
-                }
-                if (freq2 == null) {
-                    return -1;
-                }
+
                 return Double.compare(freq2, freq1);
                 }});
 		return (String)wordFrequencyArray[0][1];
