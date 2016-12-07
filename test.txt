@@ -1,4 +1,0 @@
-ab
-aab
-aaa
-abcd
