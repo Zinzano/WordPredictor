@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.List;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import javax.swing.Action;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +19,7 @@ public class MobileView extends javax.swing.JFrame  {
     String currentWrittenWords;
 	WordPredictor wp;
 	NgramSorter ns;
+	Object[][] listOfRankedwords;
 	
     /**
      * Creates new form NewJFrame
@@ -44,7 +48,8 @@ public class MobileView extends javax.swing.JFrame  {
         nineButton = new javax.swing.JButton();
         starButton = new javax.swing.JButton();
         zeroButton = new javax.swing.JButton();
-        startButton = new javax.swing.JButton();
+        hashButton = new javax.swing.JButton();
+        
         screenScroll = new javax.swing.JScrollPane();
         screen = new javax.swing.JTextArea();
         
@@ -55,7 +60,7 @@ public class MobileView extends javax.swing.JFrame  {
         oneButton.setText("1");
         oneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                oneButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "1");
             }
         });
         buttonPanel.add(oneButton);
@@ -63,7 +68,7 @@ public class MobileView extends javax.swing.JFrame  {
         twoButton.setText("2 ABC");
         twoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                twoButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "2");
             }
         });
         buttonPanel.add(twoButton);
@@ -71,7 +76,7 @@ public class MobileView extends javax.swing.JFrame  {
         threeButton.setText("3 DEF");
         threeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                threeButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "3");
             }
         });
         buttonPanel.add(threeButton);
@@ -79,7 +84,7 @@ public class MobileView extends javax.swing.JFrame  {
         fourButton.setText("4 GHI");
         fourButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fourButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "4");
             }
         });
         buttonPanel.add(fourButton);
@@ -87,7 +92,7 @@ public class MobileView extends javax.swing.JFrame  {
         fiveButton.setText("5 JKL");
         fiveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fiveButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "5");
             }
         });
         buttonPanel.add(fiveButton);
@@ -95,7 +100,7 @@ public class MobileView extends javax.swing.JFrame  {
         sixButton.setText("6 MNO");
         sixButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sixButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "6");
             }
         });
         buttonPanel.add(sixButton);
@@ -103,7 +108,7 @@ public class MobileView extends javax.swing.JFrame  {
         sevenButton.setText("7 PQRS");
         sevenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sevenButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "7");
             }
         });
         buttonPanel.add(sevenButton);
@@ -111,7 +116,7 @@ public class MobileView extends javax.swing.JFrame  {
         eightButton.setText("8 TUV");
         eightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eightButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "8");
             }
         });
         buttonPanel.add(eightButton);
@@ -119,25 +124,28 @@ public class MobileView extends javax.swing.JFrame  {
         nineButton.setText("9 WXYZ");
         nineButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nineButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "9");
             }
         });
         buttonPanel.add(nineButton);
 
-        starButton.setText("*");
+        starButton.setText("* ^");
         buttonPanel.add(starButton);
 
         zeroButton.setText("0 __");
         zeroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zeroButtonActionPerformed(evt);
+            	numberButtonActionPerformed(evt, "0");
             }
         });
         buttonPanel.add(zeroButton);
-
-        startButton.setText("#");
-        buttonPanel.add(startButton);
-
+        hashButton.setText("# toggle");
+        buttonPanel.add(hashButton);
+        hashButton.addActionListener(new java.awt.event.ActionListener(){
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		hashButtonActionPerformed(evt);
+            }
+        });
         screen.setColumns(20);
         screen.setRows(5);
         screenScroll.setViewportView(screen);
@@ -162,48 +170,20 @@ public class MobileView extends javax.swing.JFrame  {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void oneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneButtonActionPerformed
-        //buildString("1");
-    }//GEN-LAST:event_oneButtonActionPerformed
+    private void numberButtonActionPerformed(java.awt.event.ActionEvent evt, String key) {
+    	buildNumberString(key);
+    }
 
-    private void twoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtonActionPerformed
-        buildNumberString("2");
-    }//GEN-LAST:event_twoButtonActionPerformed
-
-    private void threeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeButtonActionPerformed
-        buildNumberString("3");
-    }//GEN-LAST:event_threeButtonActionPerformed
-
-    private void fourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourButtonActionPerformed
-        buildNumberString("4");
-    }//GEN-LAST:event_fourButtonActionPerformed
-
-    private void fiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveButtonActionPerformed
-        buildNumberString("5");
-    }//GEN-LAST:event_fiveButtonActionPerformed
-
-    private void sixButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixButtonActionPerformed
-        buildNumberString("6");
-    }//GEN-LAST:event_sixButtonActionPerformed
-
-    private void sevenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenButtonActionPerformed
-        buildNumberString("7");
-    }//GEN-LAST:event_sevenButtonActionPerformed
-
-    private void eightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightButtonActionPerformed
-        buildNumberString("8");
-    }//GEN-LAST:event_eightButtonActionPerformed
-
-    private void nineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineButtonActionPerformed
+    private void hashButtonActionPerformed(java.awt.event.ActionEvent evt) {
         buildNumberString("9");
-    }//GEN-LAST:event_nineButtonActionPerformed
+    }
 
-    private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
+    private void starButtonActionPerformed(java.awt.event.ActionEvent evt) {
         buildNumberString("0");
-    }//GEN-LAST:event_zeroButtonActionPerformed
-
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,7 +198,7 @@ public class MobileView extends javax.swing.JFrame  {
     private javax.swing.JButton sevenButton;
     private javax.swing.JButton sixButton;
     private javax.swing.JButton starButton;
-    private javax.swing.JButton startButton;
+    private javax.swing.JButton hashButton;
     private javax.swing.JButton threeButton;
     private javax.swing.JButton twoButton;
     private javax.swing.JButton zeroButton;
@@ -242,15 +222,16 @@ public class MobileView extends javax.swing.JFrame  {
     	String mostProbableWord;
     	if(wordString.substring(wordString.length()-1).equals(" ")){
     		List<String> t9words = wp.getWordFromNum(wordString.substring(0, wordString.length()-1));
-    		Object[][] listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+    		listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
             mostProbableWord = (String) listOfRankedwords[0][1];
     		currentWrittenWords+=mostProbableWord + " ";
     		this.screen.setText(currentWrittenWords);
     		return;
     	}
     	List<String> t9words = wp.getWordFromNum(wordString);
-    	Object[][] listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+    	listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
 		mostProbableWord = (String) listOfRankedwords[0][1];
 		this.screen.setText(currentWrittenWords + mostProbableWord);
-    }
+    
+	}
 }

@@ -38,8 +38,6 @@ public class NgramSorter {
     Double getWordFrequency(String word, List<String> wordsBefore){
         wordsBefore.add(word);
         	String tempFreq = wordFrequencyMap.get(wordsBefore);
-        	System.out.println(wordsBefore);
-        	System.out.println(tempFreq);
         	if(tempFreq==null){
         		return Double.NEGATIVE_INFINITY;
         	}
@@ -72,7 +70,8 @@ public class NgramSorter {
         for (int i = 0; i < words.size(); i++) {
             String tmpWord = words.get(i);
             Double tmpFreq = getWordFrequency(tmpWord, wordsBefore);
-            System.out.println("W " + tmpWord + tmpFreq + " Fre");
+            System.out.println("Word: " + tmpWord);
+            System.out.println("Probability: " + tmpFreq);;
             wordsBefore.remove(wordsBefore.size()-1);
             wordFrequencyArray[i][1] = tmpWord;
             wordFrequencyArray[i][0] = tmpFreq;

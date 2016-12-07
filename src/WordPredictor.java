@@ -28,10 +28,8 @@ public class WordPredictor {
 		if(possibleWords==null){
 			possibleWords = tryPredictWord(num);
 			if (!possibleWords.isEmpty()){
-				System.out.println(possibleWords + "qdqwd");
 				return possibleWords;
 			}else{
-				System.out.println(possibleWords + "2");
 				return randomWord(num);
 			}
 		}
@@ -47,8 +45,6 @@ public class WordPredictor {
 		String randomWord="";
 		for(String number:numbersPressed){
 			randomWord = randomWord + words.get(number).get(0);
-			System.out.println(number + " hej");
-			System.out.println(words.get(number).get(0) + " he2j");
 		}
 		wordsToReturn.add(randomWord);
 		return wordsToReturn;
