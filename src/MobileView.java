@@ -15,6 +15,7 @@ import javax.swing.Action;
  * @author Fredrik
  */
 public class MobileView extends javax.swing.JFrame  {
+    // TODO rensa upp bland kommentarerna och se till att vi är konsekventa med språket.
     int currentWordIndex = 0;
 	String currentNumberString;
     String currentWrittenWords;
