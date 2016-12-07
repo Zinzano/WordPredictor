@@ -130,6 +130,11 @@ public class MobileView extends javax.swing.JFrame  {
         buttonPanel.add(nineButton);
 
         starButton.setText("* ^");
+        starButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	starButtonActionPerformed(evt);
+            }
+        });
         buttonPanel.add(starButton);
 
         zeroButton.setText("0 __");
@@ -181,12 +186,10 @@ public class MobileView extends javax.swing.JFrame  {
     }
 
 	private void starButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        buildNumberString("0");
+        toggleCapitalisation();
     }
     
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eightButton;
     private javax.swing.JButton fiveButton;
     private javax.swing.JButton fourButton;
@@ -203,10 +206,48 @@ public class MobileView extends javax.swing.JFrame  {
     private javax.swing.JButton twoButton;
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
-
     
-    private void showNextWord() {
-    	
+    // Ändrar mellan stor och liten bokstav
+    private void toggleCapitalisation() {
+    	if(listOfRankedwords==null){
+    		return;
+    	}
+		String currentWord = (String)listOfRankedwords[0][1];
+		String firstLetter = currentWord.substring(0, 1);
+		String restOfword = currentWord.substring(1);
+		if(firstLetter.equals(firstLetter.toLowerCase())){
+			makeFirstCaps(listOfRankedwords);
+		}else if(firstLetter.equals(firstLetter.toUpperCase()) && restOfword.equals(restOfword.toLowerCase()) && currentWord.length()>1){
+			makeAllCaps(listOfRankedwords);
+		}else{
+			makeAllSmall(listOfRankedwords);
+		}
+		this.screen.setText(currentWrittenWords + (String)listOfRankedwords[currentWordIndex][1]); 
+    }
+	
+    //Gör om alla ord till små
+    private void makeAllSmall(Object[][] rankedWords) {
+    	for(int i=0; i<rankedWords.length;i++){
+			rankedWords[i][1] = ((String)rankedWords[i][1]).toLowerCase();
+		}
+	}
+    
+  //Gör om alla ord till stora
+	private void makeAllCaps(Object[][] rankedWords) {
+    	for(int i=0; i<rankedWords.length;i++){
+			rankedWords[i][1] = ((String)rankedWords[i][1]).toUpperCase();
+		}
+	}
+	
+	//Gör om alla ord till första stor
+	private void makeFirstCaps(Object[][] rankedWords) {
+		for(int i=0; i<rankedWords.length;i++){
+			rankedWords[i][1] = ((String)rankedWords[i][1]).substring(0, 1).toUpperCase() + ((String)rankedWords[i][1]).substring(1);
+		}
+	}
+
+	//Togglar mellan orden i listan
+	private void showNextWord() {
 		if(listOfRankedwords==null){
 			return;
 		}else{
@@ -220,6 +261,7 @@ public class MobileView extends javax.swing.JFrame  {
 			}
 		}
 	}
+    
     private void buildNumberString(String numberString) {
         if(numberString.equals("0")){
             //Detta skall skicka in 
@@ -231,8 +273,6 @@ public class MobileView extends javax.swing.JFrame  {
         }
     }
 
-    // TODO gör så att vi kan cycla mellan de möjliga orden
-    // TODO gör så att vi kan ändra mellan stor/liten boksatv
     void commitString(String wordString) {
         // TODO Den här behöver kunna hantera '.' så han tolkar det som en ny tom rad
     	String mostProbableWord;
