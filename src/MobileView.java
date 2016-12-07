@@ -15,7 +15,8 @@ import javax.swing.Action;
  * @author Fredrik
  */
 public class MobileView extends javax.swing.JFrame  {
-    String currentNumberString;
+    int currentWordIndex = 0;
+	String currentNumberString;
     String currentWrittenWords;
 	WordPredictor wp;
 	NgramSorter ns;
@@ -32,7 +33,6 @@ public class MobileView extends javax.swing.JFrame  {
         this.currentWrittenWords = "";
         initComponents();
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,10 +177,10 @@ public class MobileView extends javax.swing.JFrame  {
     }
 
     private void hashButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        buildNumberString("9");
+        showNextWord();
     }
 
-    private void starButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void starButtonActionPerformed(java.awt.event.ActionEvent evt) {
         buildNumberString("0");
     }
     
@@ -204,6 +204,22 @@ public class MobileView extends javax.swing.JFrame  {
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void showNextWord() {
+    	
+		if(listOfRankedwords==null){
+			return;
+		}else{
+			currentWordIndex++;
+			if (currentWordIndex < listOfRankedwords.length){
+				this.screen.setText(currentWrittenWords + (String)listOfRankedwords[currentWordIndex][1]);
+			
+			}else{
+				currentWordIndex=0;
+				this.screen.setText(currentWrittenWords + (String)listOfRankedwords[0][1]);
+			}
+		}
+	}
     private void buildNumberString(String numberString) {
         if(numberString.equals("0")){
             //Detta skall skicka in 
@@ -221,9 +237,10 @@ public class MobileView extends javax.swing.JFrame  {
         // TODO Den här behöver kunna hantera '.' så han tolkar det som en ny tom rad
     	String mostProbableWord;
     	if(wordString.substring(wordString.length()-1).equals(" ")){
-    		List<String> t9words = wp.getWordFromNum(wordString.substring(0, wordString.length()-1));
-    		listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
-            mostProbableWord = (String) listOfRankedwords[0][1];
+    		//Tog bort dessa rader men måste testa lite mer innan jag tar bort dem helt
+    		//List<String> t9words = wp.getWordFromNum(wordString.substring(0, wordString.length()-1));
+    		//listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+            mostProbableWord = (String) listOfRankedwords[currentWordIndex][1];
     		currentWrittenWords+=mostProbableWord + " ";
     		this.screen.setText(currentWrittenWords);
     		return;
@@ -232,6 +249,5 @@ public class MobileView extends javax.swing.JFrame  {
     	listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
 		mostProbableWord = (String) listOfRankedwords[0][1];
 		this.screen.setText(currentWrittenWords + mostProbableWord);
-    
 	}
 }
