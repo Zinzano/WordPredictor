@@ -16,23 +16,60 @@ public class WordPredictor {
 		createWordMap();
 	}
 
-	// TODO måste returnera något även då ord ej finns
-	// Ett sätt är att kolla upp tänkbara ord inom 4 bokstäver framåt
-	
-	//La till här att den skall returnera något även om ordet inte finns i ordlistan.
-	//annars ger den error.
-	//Skulle kunna lägga till så att den kastar om/tarbort/lägger till siffror LOKALT för att testa för 
-	//feltryck
+	// Tar ett nummer som en sträng (det användaren tryck in)
+	//Returnerar en lista på tänkbara or
+	//Hanterar tre fall
+	// 1) Ordet finns i ordlistan
+	// 2) Ordet finns inte men ett ord med ytterligare en siffra finns (hur långt framåt kan justeras)
+	// 3) Finns inga ord alls även om vi tittar framåt, returnera nu ett nonsensord
 	public List<String> getWordFromNum(String num){
-		List<String> possibleWords = words.get(num);
-		if(possibleWords!=null){
-			return possibleWords;
+		List<String> possibleWords = new ArrayList<String>();
+		possibleWords = words.get(num);
+		if(possibleWords==null){
+			possibleWords = tryPredictWord(num);
+			if (!possibleWords.isEmpty()){
+				System.out.println(possibleWords + "qdqwd");
+				return possibleWords;
+			}else{
+				System.out.println(possibleWords + "2");
+				return randomWord(num);
+			}
 		}
-		List<String> emptyList  = new ArrayList<String>();
-		emptyList.add("finnsej");
-		return emptyList;
+		return possibleWords;
 	}
 	
+	//Hjälpfuntion till getWordFromNum, hanterar fall 3
+	//Returerar den första boksaven för varje nummer
+	//TODO gör så att den returnerar den mest troliga bokstaven med ngram för bokstäver
+	private List<String> randomWord(String num) {
+		String[] numbersPressed = num.split("");
+		List <String> wordsToReturn = new ArrayList<String>();
+		String randomWord="";
+		for(String number:numbersPressed){
+			randomWord = randomWord + words.get(number).get(0);
+			System.out.println(number + " hej");
+			System.out.println(words.get(number).get(0) + " he2j");
+		}
+		wordsToReturn.add(randomWord);
+		return wordsToReturn;
+	}
+
+	//Hjälpfuntion till getWordFromNum, hanterar fall 2
+	// Tar det nummer som användaren skrivit
+	// Skapar ett nytt nummer som jämförs med ordlistan
+	// Om ett ord ej hittas av något av numrena så returneras null
+	private List<String> tryPredictWord(String num) {
+		List<String> predictedWords = new ArrayList<String>();
+		for(int i=2; i<9;i++){
+			String nextNum = num.concat(Integer.toString(i));
+			List<String> tempWords = words.get(nextNum);
+			if(tempWords!=null){	
+				predictedWords.addAll(tempWords);	
+			}
+		}
+		return predictedWords;
+	}
+
 	//Skapar hashmapen för alla ord
 	private void createWordMap() throws IOException {
 		//BufferedReader ska tydligen vara snabbare än scanner

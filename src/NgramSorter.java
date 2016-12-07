@@ -47,7 +47,6 @@ public class NgramSorter {
     }
 
 	Object[][] getWordsByFrequency(List<String> words, String currentSentence){
-        // TODO Behöver skriva om den här så den hanterar näre words.size() = null, tex trycker på space två gånger i rad
         Object[][] wordFrequencyArray  = new Object[words.size()][2];
 
         // Kolla hur många ord som finns innan. Vi måste lägga till en extra sträng för att hantera så längden blir
