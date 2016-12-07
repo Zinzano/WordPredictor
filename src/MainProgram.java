@@ -1,8 +1,4 @@
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class MainProgram {
 	//Skapar WordPredictor som förutser ord beroende på siffrorna

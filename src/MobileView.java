@@ -4,12 +4,6 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author Fredrik
@@ -22,11 +16,7 @@ public class MobileView extends javax.swing.JFrame  {
 	WordPredictor wp;
 	NgramSorter ns;
 	Object[][] listOfRankedwords;
-	
-    /**
-     * Creates new form NewJFrame
-     * @throws IOException 
-     */
+
     public MobileView() throws IOException {
     	this.wp = new WordPredictor();
     	this.ns = new NgramSorter(2);
@@ -35,7 +25,6 @@ public class MobileView extends javax.swing.JFrame  {
         initComponents();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         buttonPanel = new javax.swing.JPanel();
         oneButton = new javax.swing.JButton();
@@ -174,7 +163,6 @@ public class MobileView extends javax.swing.JFrame  {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
         );
-
         pack();
     }
 
@@ -190,7 +178,6 @@ public class MobileView extends javax.swing.JFrame  {
         toggleCapitalisation();
     }
     
-	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton eightButton;
     private javax.swing.JButton fiveButton;
     private javax.swing.JButton fourButton;
@@ -206,7 +193,6 @@ public class MobileView extends javax.swing.JFrame  {
     private javax.swing.JButton threeButton;
     private javax.swing.JButton twoButton;
     private javax.swing.JButton zeroButton;
-    // End of variables declaration//GEN-END:variables
     
     // Ändrar mellan stor och liten bokstav
     private void toggleCapitalisation() {
