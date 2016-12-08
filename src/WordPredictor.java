@@ -69,7 +69,7 @@ public class WordPredictor {
 	//Skapar hashmapen för alla ord
 	private void createWordMap() throws IOException {
 		//BufferedReader ska tydligen vara snabbare än scanner
-        BufferedReader br = new BufferedReader(new FileReader("words.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("words_lower_unique.txt"));
 
         // Fyller ut hashmap med alla möjliga ord
         String line;

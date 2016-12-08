@@ -1,8 +1,5 @@
 import java.io.IOException;
 import java.util.List;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
 
 /**
  *
@@ -128,6 +125,8 @@ public class MobileView extends javax.swing.JFrame  {
         buttonPanel.add(starButton);
 
         zeroButton.setText("0 __");
+        //TODO borde fixa här så att den bara lägger till mellanrum
+        //den bör nollställa alla ord i current words. 
         zeroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	numberButtonActionPerformed(evt, "0");
