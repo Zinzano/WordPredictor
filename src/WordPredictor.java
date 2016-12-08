@@ -69,11 +69,12 @@ public class WordPredictor {
 	//Skapar hashmapen för alla ord
 	private void createWordMap() throws IOException {
 		//BufferedReader ska tydligen vara snabbare än scanner
-        BufferedReader br = new BufferedReader(new FileReader("words_lower_unique.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("words.txt"));
 
         // Fyller ut hashmap med alla möjliga ord
         String line;
         String numWord;
+        System.out.println("Läser in t9 ordlistan");
         while ((line = br.readLine()) != null) {
             // Den här raden kan vi skippa när vi lägger in uppercase letters i alphabet
             // Den här gör även att vi kan två instancer av samma ord i hashmappen.
@@ -99,6 +100,7 @@ public class WordPredictor {
             }
         }
         br.close();
+        System.out.println("Klar");
 	}
 	
 	// TODO Stora bokstäver, se till att den inte gör om till lowercase

@@ -19,6 +19,7 @@ public class NgramSorter {
 	private void readFiles() throws IOException {
 		//Tog bort översta raderna i filen
         for (int i = 1; i <= nGramVersion; i++){
+        	System.out.println("Läser in n-gram fil " + i);
         	String filename = "w" + i + "_s.txt";
         	BufferedReader br = new BufferedReader(new FileReader(filename));
         	String line;
@@ -30,6 +31,7 @@ public class NgramSorter {
         		}
         		wordFrequencyMap.put(words, items[0]);
         	}
+        	System.out.println("Klar");
         	br.close();
         } 
 	}
@@ -70,8 +72,8 @@ public class NgramSorter {
         for (int i = 0; i < words.size(); i++) {
             String tmpWord = words.get(i);
             Double tmpFreq = getWordFrequency(tmpWord, wordsBefore);
-            System.out.println("Word: " + tmpWord);
-            System.out.println("Probability: " + tmpFreq);;
+            //System.out.println("Word: " + tmpWord);
+            //System.out.println("Probability: " + tmpFreq);;
             wordsBefore.remove(wordsBefore.size()-1);
             wordFrequencyArray[i][1] = tmpWord;
             wordFrequencyArray[i][0] = tmpFreq;
