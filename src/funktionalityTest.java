@@ -7,12 +7,11 @@ import java.util.List;
 public class FunktionalityTest {
 	List<String> messages = new ArrayList<String>();
 	WordPredictor wp = new WordPredictor();
-	NgramSorter ns = new NgramSorter(2);
-	
+	NgramSorter ns = new NgramSorter(5);
 	
 	public FunktionalityTest() throws IOException {
-		//getMessages("sms_corpus_letters_only.txt");
-		getMessages("sms_corpus.txt");
+		getMessages("sms_corpus_letters_only.txt");
+		//getMessages("sms_corpus.txt");
 		testT9(messages);
 	}
 
