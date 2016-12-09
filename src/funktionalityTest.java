@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FunktionalityTest {
 	List<String> messages = new ArrayList<String>();
@@ -10,14 +13,40 @@ public class FunktionalityTest {
 	NgramSorter ns = new NgramSorter(5);
 	
 	public FunktionalityTest() throws IOException {
-		getMessages("sms_corpus_letters_only.txt");
+		//getSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
+		readEasySentences("nice_english_sentences.txt");
 		testT9(messages);
+	}
+
+	private void readEasySentences(String filename) throws IOException {
+		//BufferedReader br = new BufferedReader(new FileReader(filename));
+		System.out.println("Läser in lätta meningar");
+		FileInputStream inputStream = null;
+		Scanner sc = null;
+		inputStream = new FileInputStream(filename);
+	    sc = new Scanner(inputStream, "UTF-8");
+	    while (sc.hasNextLine()) {
+	        String line = sc.nextLine();
+	        messages.add(line);
+	        }
+		//reads first line
+		//System.out.println("Läser in meningsdata");
+		//br.readLine();
+		//String line;
+		//while ((line = br.readLine()) != null){
+		//	messages.add(line);
+		//}
+		System.out.println("Klar");
+		//br.close();
+		sc.close();
+		
 	}
 
 	// Kollar bara ord [^\\w] och små bokstäver 
 	// kan ställa till det om det är många icke ord i meningarna
 	private void testT9(List<String> messages) {
+		System.out.println("Testar ord");
 		int wrong = 0;
 		int correct = 0;
 		int tested = 0;
@@ -52,7 +81,7 @@ public class FunktionalityTest {
 		return numWord;
 	}
 
-	private void getMessages(String filename) throws IOException {
+	private void getSMSMessages(String filename) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		//reads first line
 		System.out.println("Läser in sms-data");
