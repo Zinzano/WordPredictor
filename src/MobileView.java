@@ -5,6 +5,7 @@ import java.util.List;
  *
  * @author Fredrik
  */
+@SuppressWarnings("serial")
 public class MobileView extends javax.swing.JFrame  {
     // TODO rensa upp bland kommentarerna och se till att vi är konsekventa med språket.
     int currentWordIndex = 0;

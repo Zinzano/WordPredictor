@@ -55,8 +55,9 @@ public class testfil {
                 }
                 wordFrequencyMap2.put(words, items[0]);
             }
+            br.close();
         }
-
+        
         List<String> testList6 = new ArrayList<>();
         testList6.add("my");
         testList6.add("name");

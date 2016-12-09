@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,10 +7,11 @@ import java.util.List;
 public class FunktionalityTest {
 	List<String> messages = new ArrayList<String>();
 	WordPredictor wp = new WordPredictor();
-	NgramSorter ns = new NgramSorter(5);
+	NgramSorter ns = new NgramSorter(2);
 	
 	
 	public FunktionalityTest() throws IOException {
+		//getMessages("sms_corpus_letters_only.txt");
 		getMessages("sms_corpus.txt");
 		testT9(messages);
 	}
@@ -28,12 +28,12 @@ public class FunktionalityTest {
 			for(int i=0; i<words.length; i++){
 				String wordToPredict = words[i].replaceAll("[^A-Za-z]", "").toLowerCase();
 				if(!wordToPredict.equals("")){
-				currentSentence = currentSentence + " " + wordToPredict;
-				String number = getNumber(wordToPredict);
-				List<String> T9word = wp.getWordFromNum(number);
-				Object[][] listOfRankedWords = ns.getWordsByFrequency(T9word, currentSentence.split(" ", 2)[1]);
-				String predictedWord = (String)listOfRankedWords[0][1];
-				tested++;
+					currentSentence = currentSentence + " " + wordToPredict;
+					String number = getNumber(wordToPredict);
+					List<String> T9word = wp.getWordFromNum(number);
+					Object[][] listOfRankedWords = ns.getWordsByFrequency(T9word, currentSentence.split(" ", 2)[1]);
+					String predictedWord = (String)listOfRankedWords[0][1];
+					tested++;
 				if(predictedWord.equals(wordToPredict)){
 					correct++;
 				}else{
@@ -67,6 +67,7 @@ public class FunktionalityTest {
 		br.close();
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		FunktionalityTest ft = new FunktionalityTest();
 	}

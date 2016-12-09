@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,10 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class fileManager {
-
 	public fileManager() throws NumberFormatException, IOException {
-		onegramprinter();
-		moregramprinter();
+		//onegramprinter();
+		//moregramprinter();
+		getMessages("sms_corpus.txt");
+		
 	}
 	private void onegramprinter() throws NumberFormatException, IOException {
     	BufferedReader br = new BufferedReader(new FileReader("w1_.txt"));
@@ -64,7 +64,37 @@ public class fileManager {
     	writer.close();
     	br.close();
 	}
+	
 	}
+	
+	private void getMessages(String filename) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		String line;
+		FileWriter writer = new FileWriter("onlyLetterMessages.txt");
+		while ((line = br.readLine()) != null){
+			String[] items = line.split("\t");
+			String message="";
+			for(String m: items[2].split(" ")){
+				if(!m.matches("[a-zA-Z]+")){
+					message="";
+					break;
+				}else{
+					message = message + " " + m.toLowerCase();	
+				} 
+				  
+			}
+			items[2] = message;
+			if(!message.equals("")){
+				writer.write(items[0] + "\t" + items[1] + "\t" + items[2].trim() + "\t" + items[3]+ "\t" + items[4] + "\n");
+			}
+		}
+		br.close();
+		writer.close();
+		br.close();
+	}
+	
+	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		fileManager f = new fileManager();
 	}
