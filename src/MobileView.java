@@ -272,6 +272,7 @@ public class MobileView extends javax.swing.JFrame  {
     		this.screen.setText(currentWrittenWords);
     		return;
     	}
+    	
     	List<String> t9words = wp.getWordFromNum(wordString);
     	listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
 		mostProbableWord = (String) listOfRankedwords[0][1];

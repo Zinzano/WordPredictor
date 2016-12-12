@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +11,32 @@ import java.util.Scanner;
 public class FunktionalityTest {
 	List<String> messages = new ArrayList<String>();
 	WordPredictor wp = new WordPredictor();
-	NgramSorter ns = new NgramSorter(5);
+	NgramSorter ns = new NgramSorter(1);
 	
 	public FunktionalityTest() throws IOException {
 		//getSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
-		readEasySentences("nice_english_sentences.txt");
-		testT9(messages);
+		//readEasySentences("nice_english_sentences.txt");
+		readSingleWords("9000ord.txt");
+		//testT9(messages);
 	}
 
+	private void readSingleWords(String filename) throws IOException{
+		//BufferedReader br = new BufferedReader(new FileReader(filename));
+		System.out.println("Läser in enstaka ord");
+
+		FileInputStream inputStream = null;
+		Scanner sc = null;
+		inputStream = new FileInputStream(filename);
+	    sc = new Scanner(inputStream, "UTF-8");
+	    while (sc.hasNextLine()) {
+	        String line = sc.nextLine();
+	        messages.add(line);
+	        }
+		System.out.println("Klar");
+		sc.close();
+	}
+	
 	private void readEasySentences(String filename) throws IOException {
 		//BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in lätta meningar");
@@ -81,7 +99,7 @@ public class FunktionalityTest {
 		return numWord;
 	}
 
-	private void getSMSMessages(String filename) throws IOException {
+	private void readSMSMessages(String filename) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		//reads first line
 		System.out.println("Läser in sms-data");

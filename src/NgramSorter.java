@@ -95,7 +95,6 @@ public class NgramSorter {
         }
         
         return  getListByFrequency(wordFrequencyArray);
-        
 	}
 	
 	Object[][] getListByFrequency(Object[][] wordFrequencyArray){
