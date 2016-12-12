@@ -38,7 +38,6 @@ public class WordPredictor {
 	
 	//Hjälpfuntion till getWordFromNum, hanterar fall 3
 	//Returerar den första boksaven för varje nummer
-	//TODO gör så att den returnerar den mest troliga bokstaven med ngram för bokstäver
 	private List<String> randomWord(String num) {
 		String[] numbersPressed = num.split("");
 		List <String> wordsToReturn = new ArrayList<String>();
@@ -103,7 +102,7 @@ public class WordPredictor {
         System.out.println("Klar");
 	}
 	
-	// TODO Stora bokstäver, se till att den inte gör om till lowercase
+
 	// Ska skriva om den här till en snygg for-loop som även lägger in stora bokstäver
     // Alternativt lägga in allt i en fil som vi sedan läser in. Kan snacka om vilket som blir snyggast
     // Skapar alphabet

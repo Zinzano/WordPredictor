@@ -274,6 +274,7 @@ public class MobileView extends javax.swing.JFrame  {
     	}
     	List<String> t9words = wp.getWordFromNum(wordString);
     	listOfRankedwords = ns.getWordsByFrequency(t9words, currentWrittenWords);
+        
 		mostProbableWord = (String) listOfRankedwords[0][1];
 		this.screen.setText(currentWrittenWords + mostProbableWord);
 	}

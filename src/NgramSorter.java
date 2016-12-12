@@ -15,7 +15,7 @@ public class NgramSorter {
         readFiles();
 	}
 
-	// TODO kolla om det går att kobinera inläsningen an 1-gram med ordlistan i WordPredictor
+
 	private void readFiles() throws IOException {
 		//Tog bort översta raderna i filen
         for (int i = 1; i <= nGramVersion; i++){
