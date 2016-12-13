@@ -1,19 +1,74 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class fileManager {
-	public fileManager() throws NumberFormatException, IOException {
+public class FileManager {
+	public FileManager() throws NumberFormatException, IOException {
 		//onegramprinter();
 		//moregramprinter();
-		getMessages("sms_corpus.txt");
+		//getMessages("sms_corpus.txt");
+		combineOneWords("words_lower_unique.txt", "w1_s.txt");
+		//getLatestWordsFromOnegram("1_pos_n_cs_n.txt");
 		
 	}
+	
+	void getLatestWordsFromOnegram(String filename) throws NumberFormatException, IOException{
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		TreeMap<String, Integer> allWords = new TreeMap<String, Integer>();
+		FileWriter writer = new FileWriter("w1_s2.txt");
+    	String line;
+    	while((line = br.readLine()) !=null) {
+    		String[] items = line.split("\t");
+    		int CurrentFreq =Integer.parseInt(items[0]);
+    		String currentWord = items[1];
+    		allWords.put(currentWord, CurrentFreq);
+    	}
+    	
+		for(Map.Entry<String, Integer> entry : allWords.entrySet()) {
+			  String word = entry.getKey();
+			  Integer prob = entry.getValue();
+			  writer.write(prob + "\t" + word + "\n");
+			}
+    	writer.close();
+    	br.close();
+	}
+	
+	void combineOneWords(String filename1, String filename2) throws IOException{
+		Map<String, String> allWords = new HashMap<>();
+		BufferedReader file1 = new BufferedReader(new FileReader(filename1));
+		BufferedReader file2 = new BufferedReader(new FileReader(filename2));
+		String line;
+		FileWriter writer = new FileWriter("combinedOneWords.txt");
+		
+		while((line = file1.readLine()) !=null) {
+			allWords.put(line.split("\t")[0], line.split("\t")[0]);
+    	}
+		
+		while((line = file2.readLine()) !=null) {
+			allWords.put(line.split("\t")[1], line.split("\t")[1]);
+    	}
+		
+		Iterator it = allWords.entrySet().iterator();
+		while(it.hasNext()){
+			Map.Entry word = (Map.Entry)it.next();
+			writer.write((String)word.getValue() + "\n");
+		}
+		it.remove();
+		writer.close();
+		file1.close();
+		file2.close();
+		
+	}
+	
 	private void onegramprinter() throws NumberFormatException, IOException {
-    	BufferedReader br = new BufferedReader(new FileReader("w1_.txt"));
+    	BufferedReader br = new BufferedReader(new FileReader("w1_s2.txt"));
     	String line;
     	Double totFrequency = 0.0;
     	while((line = br.readLine()) !=null) {
@@ -21,16 +76,16 @@ public class fileManager {
     		totFrequency = totFrequency + Double.parseDouble(items[0]);
     	}
     	br.close();
-    	br = new BufferedReader(new FileReader("w1_.txt"));
-		FileWriter writer = new FileWriter("w1_s.txt");
-    	while((line = br.readLine()) !=null) {
+		FileWriter writer = new FileWriter("w1_s3.txt");
+		BufferedReader br2 = new BufferedReader(new FileReader("w1_s2.txt"));
+    	while((line = br2.readLine()) !=null) {
     		String[] items = line.split("\t");
     		writer.write(Math.log(Double.parseDouble(items[0])/totFrequency) + "\t" + items[1] +"\n");
     	}
     	writer.close();
-    	br.close();
+    	br2.close();
 	}
-
+	
 	void moregramprinter() throws NumberFormatException, IOException{
 		for(int a=2;a<6;a++){
 		Map<String, Double> frequencyCount = new HashMap<String, Double>();
@@ -93,9 +148,8 @@ public class fileManager {
 		br.close();
 	}
 	
-	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
-		fileManager f = new fileManager();
+		FileManager f = new FileManager();
 	}
 }
