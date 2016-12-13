@@ -14,17 +14,16 @@ public class FunktionalityTest {
 	NgramSorter ns = new NgramSorter(1);
 	
 	public FunktionalityTest() throws IOException {
-		//getSMSMessages("sms_corpus_letters_only.txt");
+		//readSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
 		//readEasySentences("nice_english_sentences.txt");
 		readSingleWords("9000ord.txt");
-		//testT9(messages);
+		testT9(messages);
 	}
 
 	private void readSingleWords(String filename) throws IOException{
 		//BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in enstaka ord");
-
 		FileInputStream inputStream = null;
 		Scanner sc = null;
 		inputStream = new FileInputStream(filename);
@@ -63,7 +62,9 @@ public class FunktionalityTest {
 
 	// Kollar bara ord [^\\w] och små bokstäver 
 	// kan ställa till det om det är många icke ord i meningarna
-	private void testT9(List<String> messages) {
+	private void testT9(List<String> messages) throws IOException {
+		FileWriter writer = new FileWriter("testResults.txt");
+		writer.write("tested word" + "\t" + "predicted word"+ "\n");
 		System.out.println("Testar ord");
 		int wrong = 0;
 		int correct = 0;
@@ -83,12 +84,16 @@ public class FunktionalityTest {
 				if(predictedWord.equals(wordToPredict)){
 					correct++;
 				}else{
+					writer.write(wordToPredict + "\t" + predictedWord + "\n");
 					wrong++;
+					
 				}
 				}
 			}
 		}
 		System.out.print("Tested: " +  tested + "\nWrong: " + wrong + "\nCorrect " +  correct + "\ncorrect: " + 100*correct/(double)tested + " %");
+		writer.write("\nTested: " +  tested + "\nWrong: " + wrong + "\nCorrect " +  correct + "\ncorrect: " + 100*correct/(double)tested + " %");
+		writer.close();
 	}
 
 	private String getNumber(String word) {

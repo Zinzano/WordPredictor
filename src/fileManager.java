@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class fileManager {
-	public fileManager() throws NumberFormatException, IOException {
+public class FileManager {
+	public FileManager() throws NumberFormatException, IOException {
 		//onegramprinter();
 		//moregramprinter();
 		//getMessages("sms_corpus.txt");
@@ -150,6 +150,6 @@ public class fileManager {
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
-		fileManager f = new fileManager();
+		FileManager f = new FileManager();
 	}
 }
