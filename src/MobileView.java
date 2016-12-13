@@ -303,7 +303,7 @@ public class MobileView extends javax.swing.JFrame  {
             } else if (!previousSentance.substring(previousSentance.length() -1).equals(" ")){
                 previousSentance += " ";
             }
-
+            currentWordIndex = 0;
             this.screen.setText(previousSentance + currentSentance);
     		return;
     	}else if(wordString.substring(wordString.length()-1).equals("1")){
@@ -316,7 +316,9 @@ public class MobileView extends javax.swing.JFrame  {
                 // Sätter denna till null så vi inte lägger till det sista ordet varje gång man trycker på mellanslag
                 listOfRankedwords = null;
             } else {
-                previousSentance+= ".";
+                previousSentance+= currentSentance + ".";
+                currentSentance = "";
+                currentWordIndex = 0;
             }
             this.screen.setText(previousSentance);
 
