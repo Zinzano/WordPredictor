@@ -10,7 +10,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  */
 @SuppressWarnings("serial")
 public class MobileView extends javax.swing.JFrame  {
-    // TODO rensa upp bland kommentarerna och se till att vi är konsekventa med språket.
+    /**
+     * klassen MobileView hanterar den grafiska interfacet för en äldre mobiltelefon.
+     * Använder bilbioteket Swing.
+     */
+    // TODO Fler kommentarer. På svenska! skrivs: "// Kommentaren" (dvs mellanslag mellan // och kommentaren)
+    // TODO Skriva en kortare beskrivning om varje funktion/class, se exemplet ovan hur det skall kommenteras
+    // TODO Skriva oss båda som authors på alla filer och med samma syntax
+    // TODO Göra någon refactor av koden där det kan behövas. Finns npg mkt vi kan dela un i mindre funktioner för att det ska blir mer lättläst
     int currentWordIndex = 0;
 	String currentNumberString;
     String currentSentance;
@@ -293,7 +300,7 @@ public class MobileView extends javax.swing.JFrame  {
     }
 
     void commitString(String wordString) {
-        // TODO Den här behöver kunna hantera '.' så han tolkar det som en ny tom rad
+
     	String mostProbableWord;
     	if(wordString.substring(wordString.length()-1).equals(" ")){
     		//Tog bort dessa rader men måste testa lite mer innan jag tar bort dem helt
