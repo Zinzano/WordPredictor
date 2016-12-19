@@ -18,8 +18,8 @@ public class FunktionalityTest {
 	NgramSorter ns = new NgramSorter(1);
 	
 	public FunktionalityTest() throws IOException {
-		/*
-		  De olika testerna som kan köras
+		/**
+         * De olika testerna som kan köras
 		 */
 		//readSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
@@ -29,10 +29,10 @@ public class FunktionalityTest {
 	}
 
 	private void readSingleWords(String filename) throws IOException{
-		/*
-		 Läser in enstaka ord från fil
+		/**
+         * Läser in enstaka ord från fil
 		 */
-		//BufferedReader br = new BufferedReader(new FileReader(filename));
+		// BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in enstaka ord");
 		FileInputStream inputStream = null;
 		Scanner sc = null;
@@ -47,10 +47,10 @@ public class FunktionalityTest {
 	}
 	
 	private void readEasySentences(String filename) throws IOException {
-		/*
-		 Läser i enklare menaingar från fil
+		/**
+         * Läser i enklare menaingar från fil
 		 */
-		//BufferedReader br = new BufferedReader(new FileReader(filename));
+		// BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in lätta meningar");
 		FileInputStream inputStream = null;
 		Scanner sc = null;
@@ -67,8 +67,8 @@ public class FunktionalityTest {
 
 
 	private void testT9(List<String> messages) throws IOException {
-		/*
-		 Testar meddelanden
+		/**
+         * Testar meddelanden
 		 */
 		FileWriter writer = new FileWriter("testResults.txt");
 		writer.write("tested word" + "\t" + "predicted word"+ "\n");
@@ -112,12 +112,12 @@ public class FunktionalityTest {
 	}
 
 	private void readSMSMessages(String filename) throws IOException {
-		/*
-		 Läser in sms data från fil 
+		/**
+         * Läser in sms data från fil
 		 */
 		BufferedReader br = new BufferedReader(new FileReader(filename));
-		//reads first line
 		System.out.println("Läser in sms-data");
+        // Remove first line
 		br.readLine();
 		String line;
 		while ((line = br.readLine()) != null){
