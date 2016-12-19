@@ -6,7 +6,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
- * @author Fredrik
+ * @author Fredrik Jonsson & Martin Tornkvist
+ * Inlämningsuppgift språkteknologi
  */
 @SuppressWarnings("serial")
 public class MobileView extends javax.swing.JFrame  {
@@ -16,7 +17,6 @@ public class MobileView extends javax.swing.JFrame  {
      */
     // TODO Fler kommentarer. På svenska! skrivs: "// Kommentaren" (dvs mellanslag mellan // och kommentaren)
     // TODO Skriva en kortare beskrivning om varje funktion/class, se exemplet ovan hur det skall kommenteras
-    // TODO Skriva oss båda som authors på alla filer och med samma syntax
     // TODO Göra någon refactor av koden där det kan behövas. Finns npg mkt vi kan dela un i mindre funktioner för att det ska blir mer lättläst
     int currentWordIndex = 0;
 	String currentNumberString;

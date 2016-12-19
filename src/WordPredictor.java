@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by Martin Tornkvist on 2016-11-29.
+ *
+ * @author Fredrik Jonsson & Martin Tornkvist
+ * Inlämningsuppgift språkteknologi
  */
 public class WordPredictor {
 	Map<String, String> alphabet = new HashMap<String, String>();
-	// Vår hasmap med alla possible words
 	Map<String, List<String>> words = new HashMap<>();
     
 	public WordPredictor() throws IOException {
@@ -16,13 +17,16 @@ public class WordPredictor {
 		createWordMap();
 	}
 
-	// Tar ett nummer som en sträng (det användaren tryck in)
-	//Returnerar en lista på tänkbara or
-	//Hanterar tre fall
-	// 1) Ordet finns i ordlistan
-	// 2) Ordet finns inte men ett ord med ytterligare en siffra finns (hur långt framåt kan justeras)
-	// 3) Finns inga ord alls även om vi tittar framåt, returnera nu ett nonsensord
+
 	public List<String> getWordFromNum(String num){
+        /**
+         * Tar ett nummer som en sträng (det användaren tryck in)
+         * Returnerar en lista på tänkbara or
+         * Hanterar tre fall
+         * 1) Ordet finns i ordlistan
+         * 2) Ordet finns inte men ett ord med ytterligare en siffra finns (hur långt framåt kan justeras)
+         * 3) Finns inga ord alls även om vi tittar framåt, returnera nu ett nonsensord
+         */
 		List<String> possibleWords = new ArrayList<String>();
 		possibleWords = words.get(num);
 		if(possibleWords==null){
@@ -36,9 +40,12 @@ public class WordPredictor {
 		return possibleWords;
 	}
 	
-	//Hjälpfuntion till getWordFromNum, hanterar fall 3
-	//Returerar den första boksaven för varje nummer
+
 	private List<String> randomWord(String num) {
+        /**
+         * Hjälpfuntion till getWordFromNum, hanterar fall 3
+         * Returerar den första boksaven för varje nummer
+         */
 		String[] numbersPressed = num.split("");
 		List <String> wordsToReturn = new ArrayList<String>();
 		String randomWord="";
@@ -49,11 +56,14 @@ public class WordPredictor {
 		return wordsToReturn;
 	}
 
-	//Hjälpfuntion till getWordFromNum, hanterar fall 2
-	// Tar det nummer som användaren skrivit
-	// Skapar ett nytt nummer som jämförs med ordlistan
-	// Om ett ord ej hittas av något av numrena så returneras null
+
 	private List<String> tryPredictWord(String num) {
+        /**
+         * Hjälpfuntion till getWordFromNum, hanterar fall 2
+         * Tar det nummer som användaren skrivit
+         * Skapar ett nytt nummer som jämförs med ordlistan
+         * Om ett ord ej hittas av något av numrena så returneras null
+         */
 		List<String> predictedWords = new ArrayList<String>();
 		for(int i=2; i<9;i++){
 			String nextNum = num.concat(Integer.toString(i));
@@ -65,9 +75,12 @@ public class WordPredictor {
 		return predictedWords;
 	}
 
-	//Skapar hashmapen för alla ord
+
 	private void createWordMap() throws IOException {
-		//BufferedReader ska tydligen vara snabbare än scanner
+        /**
+         * Skapar hashmapen för alla ord
+         */
+
         BufferedReader br = new BufferedReader(new FileReader("words.txt"));
 
         // Fyller ut hashmap med alla möjliga ord
@@ -75,11 +88,7 @@ public class WordPredictor {
         String numWord;
         System.out.println("Läser in t9 ordlistan");
         while ((line = br.readLine()) != null) {
-            // Den här raden kan vi skippa när vi lägger in uppercase letters i alphabet
-            // Den här gör även att vi kan två instancer av samma ord i hashmappen.
-            // tex Satan och satan, blir satan och satan. Det slipper vi när vi har uppercase letters i alphabet
             line = line.toLowerCase();
-            
             numWord = "";
             for (char c: line.toCharArray()) {
                     numWord += alphabet.get(String.valueOf(c));
@@ -101,11 +110,7 @@ public class WordPredictor {
         br.close();
         System.out.println("Klar");
 	}
-	
 
-	// Ska skriva om den här till en snygg for-loop som även lägger in stora bokstäver
-    // Alternativt lägga in allt i en fil som vi sedan läser in. Kan snacka om vilket som blir snyggast
-    // Skapar alphabet
 	private void createAlphabet() {
 		alphabet.put("a", "2");
 		alphabet.put("b", "2");

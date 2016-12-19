@@ -3,11 +3,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *
+ * @author Fredrik Jonsson & Martin Tornkvist
+ * Inlämningsuppgift språkteknologi
+ */
 public class NgramSorter {
-	//Skapade en hashmap för alla
     Map<List<String>, String> wordFrequencyMap = new HashMap<>();
-
-    // Den här finns med om man bara skulle vilja ha med tex 1-2gram eller 1-3gram lr liknande. värdet betyder Maximala nGram
+    // Ställer in max n-gram som man vill använda. Max är 5
 	int nGramVersion;
 	
 	public NgramSorter(int version) throws IOException {
@@ -15,9 +18,7 @@ public class NgramSorter {
         readFiles();
 	}
 
-
 	private void readFiles() throws IOException {
-		//Tog bort översta raderna i filen
         for (int i = 1; i <= nGramVersion; i++){
         	System.out.println("Läser in n-gram fil " + i);
         	String filename = "w" + i + "_s.txt";
@@ -36,8 +37,11 @@ public class NgramSorter {
         } 
 	}
 	
-    // Tar ett ord som sträng och en lista med de tidigare orden, ger tillbaka slh
+
     Double getWordFrequency(String word, List<String> wordsBefore){
+        /**
+         * Tar ett ord som sträng och en lista med de tidigare orden, ger tillbaka slh
+         */
         wordsBefore.add(word);
         	String tempFreq = wordFrequencyMap.get(wordsBefore);
         	if(tempFreq==null){
@@ -49,8 +53,8 @@ public class NgramSorter {
 	Object[][] getWordsByFrequency(List<String> words, String currentSentence){
         Object[][] wordFrequencyArray  = new Object[words.size()][2];
 
-        // Kolla hur många ord som finns innan. Vi måste lägga till en extra sträng för att hantera så längden blir
-        // korrekt om det inte finns några tidigare ord
+        // Kolla hur många ord som finns innan.
+        // Lägger till en extra sträng för att hantera så längden blir korrekt om det inte finns några tidigare ord
         String tempSentence = currentSentence + "controlStringXYZ";
         int numberOfEarlierWords = tempSentence.split(" ").length - 1;
         String[] wordsInSentence = currentSentence.split(" ");
@@ -66,14 +70,11 @@ public class NgramSorter {
             wordsBefore.add(wordsInSentence[wordsInSentence.length - i ]);
         }
         
-        //Lägger in ord och sannolikhet i Arrayen 
-        //Har lagt ihop looparna
+        // Lägger in ord och sannolikhet i Arrayen
         boolean noPropabilityForWord = true;
         for (int i = 0; i < words.size(); i++) {
             String tmpWord = words.get(i);
             Double tmpFreq = getWordFrequency(tmpWord, wordsBefore);
-            //System.out.println("Word: " + tmpWord);
-            //System.out.println("Probability: " + tmpFreq);;
             wordsBefore.remove(wordsBefore.size()-1);
             wordFrequencyArray[i][1] = tmpWord;
             wordFrequencyArray[i][0] = tmpFreq;
@@ -82,10 +83,12 @@ public class NgramSorter {
             }   
          }
         
-        //Körs bara om alla frekvenser(sannolikheter senare) är noll
-        //Anropar sig själv rekursivt med färre ord bakåt (wordsBefore) för varje rekursion. 
-        //Om inget ord bakåt är kvar så tar den den enda lösningen
-        //Detta för att returnera en mening/ord som finns i tabellen hellre än ett med sannolikhet 0
+        /*
+        Körs bara om alla frekvenser(sannolikheter senare) är noll
+        Anropar sig själv rekursivt med färre ord bakåt (wordsBefore) för varje rekursion.
+        Om inget ord bakåt är kvar så tar den den enda lösningen
+        Detta för att returnera en mening/ord som finns i tabellen hellre än ett med sannolikhet 0
+        */
         if(noPropabilityForWord && wordsBefore.size()!=0){
         	wordsBefore.remove(0);
         	StringBuilder listString = new StringBuilder();

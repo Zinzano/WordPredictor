@@ -1,22 +1,24 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ *
+ * @author Fredrik Jonsson & Martin Tornkvist
+ * Inlämningsuppgift språkteknologi
+ */
 public class FileManager {
 	public FileManager() throws NumberFormatException, IOException {
 		//onegramprinter();
 		//moregramprinter();
 		//getMessages("sms_corpus.txt");
 		combineOneWords("words_lower_unique.txt", "w1_s.txt");
-		//getLatestWordsFromOnegram("1_pos_n_cs_n.txt");
-		
+
 	}
 	
 	void getLatestWordsFromOnegram(String filename) throws NumberFormatException, IOException{
