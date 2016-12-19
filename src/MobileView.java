@@ -15,9 +15,6 @@ public class MobileView extends javax.swing.JFrame  {
      * klassen MobileView hanterar den grafiska interfacet för en äldre mobiltelefon.
      * Använder bilbioteket Swing.
      */
-    // TODO Fler kommentarer. På svenska! skrivs: "// Kommentaren" (dvs mellanslag mellan // och kommentaren)
-    // TODO Skriva en kortare beskrivning om varje funktion/class, se exemplet ovan hur det skall kommenteras
-    // TODO Göra någon refactor av koden där det kan behövas. Finns npg mkt vi kan dela un i mindre funktioner för att det ska blir mer lättläst
     int currentWordIndex = 0;
 	String currentNumberString;
     String currentSentance;
@@ -25,6 +22,23 @@ public class MobileView extends javax.swing.JFrame  {
 	WordPredictor wp;
 	NgramSorter ns;
 	Object[][] listOfRankedwords;
+
+    private javax.swing.JButton fourButton;
+    private javax.swing.JButton fiveButton;
+    private javax.swing.JButton sixButton;
+    private javax.swing.JButton sevenButton;
+    private javax.swing.JButton eightButton;
+    private javax.swing.JButton nineButton;
+    private javax.swing.JButton oneButton;
+    private javax.swing.JButton twoButton;
+    private javax.swing.JButton threeButton;
+    private javax.swing.JButton starButton;
+    private javax.swing.JButton zeroButton;
+    private javax.swing.JButton hashButton;
+
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JScrollPane screenScroll;
+    private javax.swing.JTextArea screen;
 
     public MobileView() throws IOException {
     	this.wp = new WordPredictor();
@@ -54,16 +68,13 @@ public class MobileView extends javax.swing.JFrame  {
         screen = new javax.swing.JTextArea();
         screen.setEditable(false);
         screen.setFont(screen.getFont().deriveFont(32f));
-
-        // Ser till att texten wrappas så den håller sig i textrutan
         screen.setLineWrap(true);
         screen.setWrapStyleWord(true);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         buttonPanel.setLayout(new java.awt.GridLayout(4, 3));
-        
-        oneButton.setText("1");
+
+        oneButton.setText("1 .!?");
         oneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	numberButtonActionPerformed(evt, "1");
@@ -144,8 +155,6 @@ public class MobileView extends javax.swing.JFrame  {
         buttonPanel.add(starButton);
 
         zeroButton.setText("0 __");
-        //TODO borde fixa här så att den bara lägger till mellanrum
-        //den bör nollställa alla ord i current words. 
         zeroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	numberButtonActionPerformed(evt, "0");
@@ -196,24 +205,13 @@ public class MobileView extends javax.swing.JFrame  {
         toggleCapitalisation();
     }
     
-    private javax.swing.JButton eightButton;
-    private javax.swing.JButton fiveButton;
-    private javax.swing.JButton fourButton;
-    private javax.swing.JPanel buttonPanel;
-    private javax.swing.JScrollPane screenScroll;
-    private javax.swing.JTextArea screen;
-    private javax.swing.JButton nineButton;
-    private javax.swing.JButton oneButton;
-    private javax.swing.JButton sevenButton;
-    private javax.swing.JButton sixButton;
-    private javax.swing.JButton starButton;
-    private javax.swing.JButton hashButton;
-    private javax.swing.JButton threeButton;
-    private javax.swing.JButton twoButton;
-    private javax.swing.JButton zeroButton;
+
     
-    // Ändrar mellan stor och liten bokstav
+
     private void toggleCapitalisation() {
+        /**
+         * Ändrar mellan stor och liten bokstav
+         */
     	if(listOfRankedwords==null ){
             // Hanterar . ! ?
             if (previousSentance.substring(previousSentance.length() -1).equals(".")
@@ -243,33 +241,40 @@ public class MobileView extends javax.swing.JFrame  {
 		}else{
 			makeAllSmall(listOfRankedwords);
 		}
-        // TODO Refactor så alla setText på screen blir en egen metod
 		this.screen.setText(previousSentance + currentSentance + (String)listOfRankedwords[currentWordIndex][1]);
     }
-	
-    //Gör om alla ord till små
+
     private void makeAllSmall(Object[][] rankedWords) {
+        /**
+         * Gör om alla ord till små bokstäver
+         */
     	for(int i=0; i<rankedWords.length;i++){
 			rankedWords[i][1] = ((String)rankedWords[i][1]).toLowerCase();
 		}
 	}
-    
-  //Gör om alla ord till stora
+
 	private void makeAllCaps(Object[][] rankedWords) {
+        /**
+         * Gör om alla ord till stora bokstäver
+         */
     	for(int i=0; i<rankedWords.length;i++){
 			rankedWords[i][1] = ((String)rankedWords[i][1]).toUpperCase();
 		}
 	}
-	
-	//Gör om alla ord till första stor
+
 	private void makeFirstCaps(Object[][] rankedWords) {
+        /**
+         * Gör om alla ord till första bokstaven stor
+         */
 		for(int i=0; i<rankedWords.length;i++){
 			rankedWords[i][1] = ((String)rankedWords[i][1]).substring(0, 1).toUpperCase() + ((String)rankedWords[i][1]).substring(1);
 		}
 	}
 
-	//Togglar mellan orden i listan
 	private void showNextWord() {
+        /**
+         * Ändrar visat ord. Tar nästa i listan och börjar om från början om man går igenom alla möjliga ord
+         */
 		if(listOfRankedwords==null){
 			return;
 		}else{
@@ -300,17 +305,12 @@ public class MobileView extends javax.swing.JFrame  {
     }
 
     void commitString(String wordString) {
-
     	String mostProbableWord;
     	if(wordString.substring(wordString.length()-1).equals(" ")){
-    		//Tog bort dessa rader men måste testa lite mer innan jag tar bort dem helt
-    		//List<String> t9words = wp.getWordFromNum(wordString.substring(0, wordString.length()-1));
-    		//listOfRankedwords = ns.getWordsByFrequency(t9words, currentSentance);
             if (listOfRankedwords != null){
                 mostProbableWord = (String) listOfRankedwords[currentWordIndex][1];
                 currentSentance +=mostProbableWord + " ";
-
-                // Sätter denna till null så vi inte lägger till det sista ordet varje gång man trycker på mellanslag
+                // Sätts till null så det sista ordet inte läggs till varje gång användaren trycker på '0'
                 listOfRankedwords = null;
             } else if (!previousSentance.substring(previousSentance.length() -1).equals(" ")){
                 previousSentance += " ";
@@ -324,8 +324,7 @@ public class MobileView extends javax.swing.JFrame  {
                 currentSentance +=mostProbableWord + ".";
                 previousSentance += currentSentance;
                 currentSentance = "";
-
-                // Sätter denna till null så vi inte lägger till det sista ordet varje gång man trycker på mellanslag
+                // Sätts till null så det sista ordet inte läggs till varje gång användaren trycker på '1'
                 listOfRankedwords = null;
             } else {
                 previousSentance+= currentSentance + ".";
@@ -338,7 +337,6 @@ public class MobileView extends javax.swing.JFrame  {
         }
     	List<String> t9words = wp.getWordFromNum(wordString);
     	listOfRankedwords = ns.getWordsByFrequency(t9words, currentSentance);
-        
 		mostProbableWord = (String) listOfRankedwords[0][1];
 		this.screen.setText(previousSentance + currentSentance + mostProbableWord);
 	}
