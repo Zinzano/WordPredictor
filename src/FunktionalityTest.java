@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class FunktionalityTest {
 	List<String> messages = new ArrayList<String>();
 	WordPredictor wp = new WordPredictor();
-	NgramSorter ns = new NgramSorter(1);
+	NgramSorter ns = new NgramSorter(4);
 	
 	public FunktionalityTest() throws IOException {
 		/**
@@ -23,8 +23,8 @@ public class FunktionalityTest {
 		 */
 		//readSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
-		//readEasySentences("nice_english_sentences.txt");
-		readSingleWords("9000ord.txt");
+		readEasySentences("nice_english_sentences.txt");
+		//readSingleWords("9000ord.txt");
 		testT9(messages);
 	}
 

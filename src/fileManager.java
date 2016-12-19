@@ -15,10 +15,9 @@ import java.util.TreeMap;
 public class FileManager {
 	public FileManager() throws NumberFormatException, IOException {
 		//onegramprinter();
-		//moregramprinter();
+		moregramprinter();
 		//getMessages("sms_corpus.txt");
-		combineOneWords("words_lower_unique.txt", "w1_s.txt");
-
+		//combineOneWords("words_lower_unique.txt", "w1_s.txt");
 	}
 	
 	void getLatestWordsFromOnegram(String filename) throws NumberFormatException, IOException{
@@ -91,7 +90,7 @@ public class FileManager {
 	void moregramprinter() throws NumberFormatException, IOException{
 		for(int a=2;a<6;a++){
 		Map<String, Double> frequencyCount = new HashMap<String, Double>();
-    	BufferedReader br = new BufferedReader(new FileReader("w" + a +"_.txt"));
+    	BufferedReader br = new BufferedReader(new FileReader("COCA/w" + a +"_.txt"));
     	String line;
     	while((line = br.readLine()) !=null) {
     		String[] items = line.split("\t");
@@ -106,8 +105,8 @@ public class FileManager {
     		}
     	}
     	br.close();
-    	br = new BufferedReader(new FileReader("w" + a +"_.txt"));
-		FileWriter writer = new FileWriter("w" + a +"_s.txt");
+    	br = new BufferedReader(new FileReader("COCA/w" + a +"_.txt"));
+		FileWriter writer = new FileWriter("COCA/w" + a +"_s.txt");
     	while((line = br.readLine()) !=null) {
     		String[] items = line.split("\t");
     		String preString="";

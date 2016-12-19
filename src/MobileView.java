@@ -42,7 +42,7 @@ public class MobileView extends javax.swing.JFrame  {
 
     public MobileView() throws IOException {
     	this.wp = new WordPredictor();
-    	this.ns = new NgramSorter(1);
+    	this.ns = new NgramSorter(2);
         this.currentNumberString = "";
         this.currentSentance = "";
         this.previousSentance = "";

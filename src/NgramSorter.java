@@ -21,7 +21,7 @@ public class NgramSorter {
 	private void readFiles() throws IOException {
         for (int i = 1; i <= nGramVersion; i++){
         	System.out.println("Läser in n-gram fil " + i);
-        	String filename = "w" + i + "_s.txt";
+        	String filename = "COCA/w" + i + "_s.txt";
         	BufferedReader br = new BufferedReader(new FileReader(filename));
         	String line;
         	while((line = br.readLine()) != null) {
