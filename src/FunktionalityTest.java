@@ -18,6 +18,9 @@ public class FunktionalityTest {
 	NgramSorter ns = new NgramSorter(1);
 	
 	public FunktionalityTest() throws IOException {
+		/*
+		  De olika testerna som kan köras
+		 */
 		//readSMSMessages("sms_corpus_letters_only.txt");
 		//getMessages("sms_corpus.txt");
 		//readEasySentences("nice_english_sentences.txt");
@@ -26,6 +29,9 @@ public class FunktionalityTest {
 	}
 
 	private void readSingleWords(String filename) throws IOException{
+		/*
+		 Läser in enstaka ord från fil
+		 */
 		//BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in enstaka ord");
 		FileInputStream inputStream = null;
@@ -41,6 +47,9 @@ public class FunktionalityTest {
 	}
 	
 	private void readEasySentences(String filename) throws IOException {
+		/*
+		 Läser i enklare menaingar från fil
+		 */
 		//BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Läser in lätta meningar");
 		FileInputStream inputStream = null;
@@ -51,22 +60,16 @@ public class FunktionalityTest {
 	        String line = sc.nextLine();
 	        messages.add(line);
 	        }
-		//reads first line
-		//System.out.println("Läser in meningsdata");
-		//br.readLine();
-		//String line;
-		//while ((line = br.readLine()) != null){
-		//	messages.add(line);
-		//}
 		System.out.println("Klar");
-		//br.close();
 		sc.close();
 		
 	}
 
-	// Kollar bara ord [^\\w] och små bokstäver 
-	// kan ställa till det om det är många icke ord i meningarna
+
 	private void testT9(List<String> messages) throws IOException {
+		/*
+		 Testar meddelanden
+		 */
 		FileWriter writer = new FileWriter("testResults.txt");
 		writer.write("tested word" + "\t" + "predicted word"+ "\n");
 		System.out.println("Testar ord");
@@ -109,6 +112,9 @@ public class FunktionalityTest {
 	}
 
 	private void readSMSMessages(String filename) throws IOException {
+		/*
+		 Läser in sms data från fil 
+		 */
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		//reads first line
 		System.out.println("Läser in sms-data");
@@ -122,7 +128,6 @@ public class FunktionalityTest {
 		br.close();
 	}
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		FunktionalityTest ft = new FunktionalityTest();
 	}
